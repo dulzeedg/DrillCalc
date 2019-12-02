@@ -10,8 +10,10 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
-        <Window.Resources>
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d" Height="600" Width="1080"  Foreground="White" WindowStartupLocation="CenterScreen" Title="MainWindow" >
+
+    <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
@@ -34,7 +36,7 @@
         </EventTrigger>
     </Window.Triggers>
     <Grid >
-      <Grid x:Name="GridMain" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <Grid x:Name="GridMain" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         <Grid Height="60" VerticalAlignment="Top" Background="#FF5C99D6">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="1" ShadowDepth="1" Color="#FFACACAC"/>
@@ -88,14 +90,14 @@
                             <TextBlock Text="Hopkin's Model" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ChartLine" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Graph" VerticalAlignment="Center"  Margin="20 10"/>
-                        </StackPanel>
-                    </ListViewItem>
-                </ListView>
+
+					<ListViewItem x:Name="ItemPlot" Height="60">
+						<StackPanel Orientation="Horizontal">
+							<materialDesign:PackIcon Kind="ChartLine" Height="25" Width="25" Margin="10"/>
+							<TextBlock Text="Graph" VerticalAlignment="Center" Margin="20 10"/>
+						</StackPanel>
+					</ListViewItem>
+				</ListView>
             </StackPanel>
         </Grid>
     </Grid>
