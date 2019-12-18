@@ -5,26 +5,26 @@ using Wpf.CartesianChart.PointShapeLine;
 namespace DrillCalc
 {
 	public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-        
-        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonCloseMenu.Visibility = Visibility.Visible;
-            ButtonOpenMenu.Visibility = Visibility.Collapsed;
-        }
+	{
+		public MainWindow()
+		{
+			InitializeComponent();
+		}
 
-        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonCloseMenu.Visibility = Visibility.Collapsed;
-            ButtonOpenMenu.Visibility = Visibility.Visible;
-        }
+		private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
+		{
+			ButtonCloseMenu.Visibility = Visibility.Visible;
+			ButtonOpenMenu.Visibility = Visibility.Collapsed;
+		}
 
-        private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+		private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+		{
+			ButtonCloseMenu.Visibility = Visibility.Collapsed;
+			ButtonOpenMenu.Visibility = Visibility.Visible;
+		}
+
+		private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
 			GridMain.Children.Clear();
 
 			UserControl usc;
@@ -46,5 +46,5 @@ namespace DrillCalc
 					break;
 			}
 		}
-    }
+	}
 }

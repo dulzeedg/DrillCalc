@@ -8,21 +8,48 @@
              TextOptions.TextRenderingMode="Auto"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid Height="540" Width="1010">
-        <UniformGrid Margin="160,70,285,20">
-            <WrapPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,5,-37.6,-232.2" Height="440">
-                <TextBox x:Name="textBox0" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Plastic Viscosity (pv)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
-                <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Yield Piont (YP)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
-                <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Density of Mud (pm)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
-                <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Hole Diameter (Dh)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20" />
-                <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Pipe Diameter (Dp)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
-                <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Density of Cutting (ps)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
-                <TextBox x:Name="textBox6" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="D50" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
-                <TextBox x:Name="textBox7" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Rate of Pentration (ROP)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
-                <TextBox x:Name="textBox8" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Drill pip rotation (RPM)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
-                <TextBox x:Name="textBox9" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Cutting concentration (Ccon)" VerticalAlignment="Top" Width="200" Margin="0,0,0,0"/>
-            </WrapPanel>
-            <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="92.2,296,0,-135.4" VerticalAlignment="Top" Width="120" Height="25" Click="button_Click_Calc"/>
-        </UniformGrid>
-    </Grid>
+	<Grid Height="540" Width="1010">
+		<TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="520" Margin="120,15,0,0" VerticalAlignment="Top" Width="785">
+			<TabItem Header="Bingham Model">
+				<Grid>
+					<UniformGrid Margin="0,0,2.2,32">
+						<WrapPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,5,-37.6,-232.2" Height="440">
+							<TextBox x:Name="BtextBox0" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Plastic Viscosity (pv)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+							<TextBox x:Name="BtextBox1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Yield Piont (YP)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+							<TextBox x:Name="BtextBox2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Density of Mud (pm)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+							<TextBox x:Name="BtextBox3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Hole Diameter (Dh)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20" />
+							<TextBox x:Name="BtextBox4" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Pipe Diameter (Dp)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+							<TextBox x:Name="BtextBox5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Density of Cutting (ps)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+							<TextBox x:Name="BtextBox6" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="D50" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+							<TextBox x:Name="BtextBox7" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Rate of Pentration (ROP)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+							<TextBox x:Name="BtextBox8" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Drill pip rotation (RPM)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+							<TextBox x:Name="BtextBox9" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Cutting concentration (Ccon)" VerticalAlignment="Top" Width="200" Margin="0,0,0,0"/>
+						</WrapPanel>
+						<Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="92.2,296,0,-135.4" VerticalAlignment="Top" Width="120" Height="25" Click="Button_Click_Calc"/>
+					</UniformGrid>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Herschel-Bulkley Model">
+				<Grid>
+					<Grid>
+						<UniformGrid >
+							<WrapPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,5,-37.6,-232.2" Height="440">
+								<TextBox x:Name="HtextBox0" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Plastic Viscosity (pv)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+								<TextBox x:Name="HtextBox1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Yield Piont (YP)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+								<TextBox x:Name="HtextBox2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Density of Mud (pm)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+								<TextBox x:Name="HtextBox3" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Hole Diameter (Dh)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20" />
+								<TextBox x:Name="HtextBox4" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Pipe Diameter (Dp)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+								<TextBox x:Name="HtextBox5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Density of Cutting (ps)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+								<TextBox x:Name="HtextBox6" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="D50" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+								<TextBox x:Name="HtextBox7" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Rate of Pentration (ROP)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+								<TextBox x:Name="HtextBox8" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Drill pip rotation (RPM)" VerticalAlignment="Top" Width="200" Margin="0,0,0,20"/>
+								<TextBox x:Name="HtextBox9" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Cutting concentration (Ccon)" VerticalAlignment="Top" Width="200" Margin="0,0,0,0"/>
+							</WrapPanel>
+							<Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="92.2,296,0,-135.4" VerticalAlignment="Top" Width="120" Height="25" Click="Button_Click_Calc"/>
+						</UniformGrid>
+					</Grid>
+				</Grid>
+			</TabItem>
+		</TabControl>
+	</Grid>
 </UserControl>
