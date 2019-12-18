@@ -44,7 +44,7 @@ namespace DrillCalc
 			ps = Convert.ToDouble(inputData7);
 			ang = Convert.ToInt32(inputData8);
 
-
+// Hopkins's Calc.
 			RPM = RPM600 / RPM300;
 			n = 3.32 * Math.Log10(RPM);
 			k = RPM300 / Math.Pow(511, n);
