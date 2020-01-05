@@ -56,6 +56,7 @@ namespace DrillCalc
 
 			//double Va;
 
+<<<<<<< HEAD
 
 			//int ang;
 			HBPs = Convert.ToDouble(inputData0);
@@ -71,6 +72,9 @@ namespace DrillCalc
 
 			// Ambiguity
 			/*
+=======
+// Hopkins's Calc.
+>>>>>>> 9d31b9c4f0e5370afeffe819eb6b85ecd811ba6e
 			RPM = RPM600 / RPM300;
 			n = 3.32 * Math.Log10(RPM);
 			k = RPM300 / Math.Pow(511, n);
