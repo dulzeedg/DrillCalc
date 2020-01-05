@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace DrillCalc
 {
@@ -11,110 +12,234 @@ namespace DrillCalc
 			InitializeComponent();
 		}
 
-		// Declaring Variables
-		string inputData1 = string.Empty;
-		string inputData2 = string.Empty;
-		string inputData3 = string.Empty;
-		string inputData4 = string.Empty;
-		string inputData5 = string.Empty;
-		string inputData6 = string.Empty;
-		string inputData7 = string.Empty;
-		string inputData8 = string.Empty;
-		string inputData9 = string.Empty;
+		// Declaring Variables for Bingham
+		string inputData00 = string.Empty;
+		string inputData01 = string.Empty;
+		string inputData02 = string.Empty;
+		string inputData03 = string.Empty;
+		string inputData04 = string.Empty;
 		string inputData10 = string.Empty;
+		string inputData11 = string.Empty;
+		string inputData12 = string.Empty;
+		string inputData13 = string.Empty;
+		string inputData14 = string.Empty;
 
-		private void Button_Click_Calc(object sender, RoutedEventArgs e)
+		// Declaring Variables for Herschel
+		string inputData20 = string.Empty;
+		string inputData21 = string.Empty;
+		string inputData22 = string.Empty;
+		string inputData23 = string.Empty;
+		string inputData24 = string.Empty;
+		string inputData30 = string.Empty;
+		string inputData31 = string.Empty;
+		string inputData32 = string.Empty;
+		string inputData33 = string.Empty;
+		string inputData34 = string.Empty;
+		string inputData35 = string.Empty;
+		
+
+
+		public double BVMin { get; set; }
+		public double HVMin { get; set; }
+
+		private void Bingham_Button_Click_Calc(object sender, RoutedEventArgs e)
 		{
 
 			// add user input from textbox to var input
-			inputData1 += BtextBox0.Text;
-			inputData2 += BtextBox1.Text;
-			inputData3 += BtextBox2.Text;
-			inputData4 += BtextBox3.Text;
-			inputData5 += BtextBox4.Text;
-			inputData6 += BtextBox5.Text;
-			inputData7 += BtextBox6.Text;
-			inputData8 += BtextBox7.Text;
-			inputData9 += BtextBox8.Text;
-			inputData10 += BtextBox9.Text;
+			inputData00 += BtextBoxPv.Text;
+			inputData01 += BtextBoxYp.Text;
+			inputData02 += BtextBoxPm.Text;
+			inputData03 += BtextBoxDh.Text;
+			inputData04 += BtextBoxDp.Text;
+			inputData10 += BtextBoxPs.Text;
+			inputData11 += BtextBoxDc.Text;
+			inputData12 += BtextBoxRop.Text;
+			inputData13 += BtextBoxRpm.Text;
+			inputData14 += BtextBoxCconc.Text;
+
+
+			// Calculating Output
+			//  Main i/p Variables, B is added to all var for proper ref
+			double BPv, BYp, BPm, BDh, BDp,
+					BPs, BDc, BRop, BRpm, BCconc;
+			double BDT, BDTSqrd, BVcut, BVs1,
+					BVmin, BD1, BUa, BRe,
+						BF, BVslip;
+			int i;
+			BPv = Convert.ToDouble(inputData00);
+			BYp = Convert.ToDouble(inputData01);
+			BPm = Convert.ToDouble(inputData02);
+			BDh = Convert.ToDouble(inputData03);
+			BDp = Convert.ToDouble(inputData04);
+			BPs = Convert.ToDouble(inputData10);
+			BDc = Convert.ToDouble(inputData11);
+			BRop = Convert.ToDouble(inputData12);
+			BRpm = Convert.ToDouble(inputData13);
+			BCconc = Convert.ToDouble(inputData14);
+
+			// Calculations
+			BDT = BDp / BDh;
+			BDTSqrd = 1 - Math.Pow(BDT, 2);
+			BVcut = BRop / (36 * BDTSqrd * BCconc);
+			BVs1 = 3.14;
+			BVmin = BVcut + BVs1;
+			BD1 = BDh - BDp;
+			BUa = BPv + (5 * BYp * BD1 / BVmin);
+			BRe = (928 * BPm * BDc * BVs1) / BUa;
+			BF = 0;
+			{
+				if (BRe <= 3)
+				{
+					BF = 40 / BRe;
+				}
+
+				else if (BRe >= 300)
+				{
+					BF = 1.54;
+				}
+
+				else if (BRe > 3 && BRe < 300)
+				{
+					BF = 22 / Math.Sqrt(BRe);
+				}
+			}
+
+			BVslip = 1.89 * Math.Sqrt(Math.Abs((((BDc / BF) * ((BPs - BPm) / BPm)))));
+
+			for (i = 0; i < 91; i++)
+			{
+				double[] BVMin = new double[20];
+				if (i < 45)
+				{
+					
+					BVMin = BVcut + ((1 + (2 * i / 45)) * (1 - (BRpm / 600)) * ((3 + BPm) / 15) * BVslip).Where(d => d.hasValue)
+						.Cast<double>()
+						.ToArray();
+				}
+				else if (i > 45)
+				{
+					BVMin = BVcut + (3 * (3 + (BPm / 15)) * (1 - (BRpm / 600)) * BVslip).Where(d => d.hasValue)
+						.Cast<double>()
+						.ToArray();
+				}
+
+
+			}
+
+			// send to plot
+			Wpf.CartesianChart.PointShapeLine.PointShapeLineExample PlotGraph1 = new Wpf.CartesianChart.PointShapeLine.PointShapeLineExample();
+			PlotGraph1.Show();
+			Close();
+
+
+
+			// Clear Input
+			//BtextBox0.Text = "";
+
+		}
+
+
+
+		private void Herschel_Button_Click_Calc(object sender, RoutedEventArgs e)
+		{
+			// add user input from textbox to var input
+			inputData20 += HtextBoxFb.Text;
+			inputData21 += HtextBoxK.Text;
+			inputData22 += HtextBoxPm.Text;
+			inputData23 += HtextBoxDh.Text;
+			inputData24 += HtextBoxDp.Text;
+			inputData30 += HtextBoxPs.Text;
+			inputData31 += HtextBoxCd.Text;
+			inputData32 += HtextBoxRop.Text;
+			inputData33 += HtextBoxRpm.Text;
+			inputData34 += HtextBoxCcon.Text;
+			inputData35 += HtextBoxFr.Text;
 
 			// Calculating Output
 
 			// Variables
-			double Dpipe, Dhole, ROP, Dtot, DtotSqrd, Cconc, Vs1, Vmin, D1, Pv, YP, Ua, Re, D50, Pm, f, Vslip, Ps;
-			double Vcut, abs, absV, RPM;
+			double HFb, Hk, HPm, HDh, HDp,
+					HPs, HCd, HRop, HRpm,
+						HCcon, HFr;
+
+			double HDT, HDTSqrd, HVcut, HVs1,
+					 HD, Hn, HUa, HRe,
+						Hf, HVslip;
 			int i;
-			Dpipe = Convert.ToDouble(inputData5);
-			Dhole = Convert.ToDouble(inputData4);
-			ROP = Convert.ToDouble(inputData8);
-			Pv = Convert.ToDouble(inputData1);
-			YP = Convert.ToDouble(inputData2);
-			D50 = Convert.ToDouble(inputData7);
-			Pm = Convert.ToDouble(inputData3);
-			Ps = Convert.ToDouble(inputData6);
-			RPM = Convert.ToDouble(inputData9);
-			Cconc = Convert.ToDouble(inputData10);
+
+			HFb = Convert.ToDouble(inputData20);
+			Hk = Convert.ToDouble(inputData21);
+			HPm = Convert.ToDouble(inputData22);
+			HDh = Convert.ToDouble(inputData23);
+			HDp = Convert.ToDouble(inputData24);
+			HPs = Convert.ToDouble(inputData30);
+			HCd = Convert.ToDouble(inputData31);
+			HRop = Convert.ToDouble(inputData32);
+			HRpm = Convert.ToDouble(inputData33);
+			HCcon = Convert.ToDouble(inputData34);
+			HFr = Convert.ToDouble(inputData35);
+
 
 			// Calculations
-			Dtot = Dpipe / Dhole;
-			DtotSqrd = 1 - Math.Pow(Dtot, 2);
-			
-			//
-			Vcut = ROP / 36 * DtotSqrd * Cconc;
-			Vs1 = 0.1;
-			Vmin = Vcut + Vs1;
-			D1 = Dhole - Dpipe;
-			Ua = Pv + ((5 * YP * D1) / Vmin);
-			Re = (928 * Pm * D50 * Vs1) / Ua;
-			f = 0;
-			if (Re < 3)
+			HDT = HDp / HDh;
+			HDTSqrd = 1 - Math.Pow(HDT, 2);
+			HVcut = HRop / (36 * HDTSqrd * HCcon);
+			HVs1 = 0.1;
+			//HVmin = HVcut + HVs1;
+			HD = HDh - HDp;
+			Hn = 1 - HFb;
+			HUa = ((((Hk * Math.Pow(HD, Hn))) / (144 * Math.Pow(HFr, Hn)))) * (Math.Pow(((2 + (1 / Hn)) / 0.0208), HFb));
+			HRe = (928 * HPm * HCd * HVs1) / HUa;
+			Hf = 0;
+			if (HRe <= 3)
 			{
-				f = 40 / Re;
+				Hf = 40 / HRe;
 			}
-			else if (Re > 300)
+
+			else if (HRe >= 300)
 			{
-				f = 1.54;
+				Hf = 1.54;
 			}
-			else if (Re > 3 && Re < 300)
+
+			else if (HRe > 3 && HRe < 300)
 			{
-				f = 22 / Math.Sqrt(Re);
+				Hf = 22 / Math.Sqrt(HRe);
 			}
-			Vslip = 1.89 * (Math.Sqrt((D50 / f) * ((Ps - Pm) / Pm)));
-			abs = Vslip - Vs1;
-			absV = Math.Abs(abs);
-			if (absV < 0.001)
+
+			HVslip = 1.89 * (Math.Sqrt(Math.Abs((((HCd / Hf) * ((HPs - HPm) / HPm))))));
+
+
+
+			for (i = 0; i < 91; i++)
 			{
-				for (i = 0; i < 100; i = +5)
+				
+				if (i < 45)
 				{
-					if (i < 45)
-					{
-						i = +5;
-						Vmin = Vcut + Vslip * (1 + ((i * (600 - RPM) * (3 + Pm)) / 202500));
-					}
-					else if (i > 45)
-					{
-						i = +5;
-						Vmin = Vcut + (Vslip * (1 + ((i * (600 - RPM) * (3 + Pm)) / 4500)));
-					}
+					//double[] = new double[90];
+					HVMin = HVcut + ((1 + ((2 * i) / 45)) * (1 - (HRpm / 600)) * ((3 + HPm) / 15) * HVslip);
 				}
+				else if (i > 45)
+				{
+					HVMin = HVcut + (((3 * 3) + (HPm / 15)) * (1 - HRpm / 600) * HVslip);
+				}
+
 			}
-			else if (absV > 0.001)
-			{
-				Vs1 = (Vslip + Vs1) / 2;
-			}
+
+			// send to plot
+
+			Wpf.CartesianChart.PointShapeLine.PointShapeLineExample PlotGraph2 = new Wpf.CartesianChart.PointShapeLine.PointShapeLineExample();
+			PlotGraph2.Show();
+			RubiModel.Close();
 
 			// Clear Input
-			BtextBox0.Text = "";
-			BtextBox1.Text = "";
-			BtextBox2.Text = "";
-			BtextBox3.Text = "";
-			BtextBox4.Text = "";
-			BtextBox5.Text = "";
-			BtextBox6.Text = "";
-			BtextBox7.Text = "";
-			BtextBox8.Text = "";
-			BtextBox9.Text = "";
+			//HtextBox0.Text = "";
 
+
+		}
+
+		private static void Close()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

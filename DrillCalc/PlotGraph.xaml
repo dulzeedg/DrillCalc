@@ -11,10 +11,10 @@
             <Grid Height="500" Width="1000">
                 <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Right" >
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Sales" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                        <lvc:Axis Title="Vmin" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                     </lvc:CartesianChart.AxisY>
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Month" Labels="{Binding Labels}" Foreground="#FFEA0000"></lvc:Axis>
+                        <lvc:Axis Title="Angle" Labels="{Binding Labels}" Foreground="#FFEA0000"></lvc:Axis>
                     </lvc:CartesianChart.AxisX>
                 </lvc:CartesianChart>
             </Grid>
