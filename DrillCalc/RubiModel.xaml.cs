@@ -111,16 +111,16 @@ namespace DrillCalc
 				double[] BVMin = new double[20];
 				if (i < 45)
 				{
-					
-					BVMin = BVcut + ((1 + (2 * i / 45)) * (1 - (BRpm / 600)) * ((3 + BPm) / 15) * BVslip).Where(d => d.hasValue)
-						.Cast<double>()
-						.ToArray();
+					// There's a bug
+					//BVMin = BVcut + ((1 + (2 * i / 45)) * (1 - (BRpm / 600)) * ((3 + BPm) / 15) * BVslip).Where(d => d.hasValue)
+					//	.Cast<double>()
+						//.ToArray();
 				}
 				else if (i > 45)
 				{
-					BVMin = BVcut + (3 * (3 + (BPm / 15)) * (1 - (BRpm / 600)) * BVslip).Where(d => d.hasValue)
-						.Cast<double>()
-						.ToArray();
+					//BVMin = BVcut + (3 * (3 + (BPm / 15)) * (1 - (BRpm / 600)) * BVslip).Where(d => d.hasValue)
+						//.Cast<double>()
+						//.ToArray();
 				}
 
 
