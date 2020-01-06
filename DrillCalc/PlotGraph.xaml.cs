@@ -3,12 +3,12 @@ using LiveCharts.Wpf;
 using System;
 using System.Windows.Controls;
 
-namespace Wpf.CartesianChart.PointShapeLine
+namespace DrillCalc
 {
-	public partial class PointShapeLineExample : UserControl
+	public partial class PlotGraph : UserControl
 	{
 		
-		public PointShapeLineExample()
+		public PlotGraph()
 		{
 			InitializeComponent();
 

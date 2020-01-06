@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using Wpf.CartesianChart.PointShapeLine;
 
 namespace DrillCalc
 {
@@ -40,7 +38,7 @@ namespace DrillCalc
 					GridMain.Children.Add(usc);
 					break;
 				case "ItemPlot":
-					usc = new PointShapeLineExample();
+					usc = new PlotGraph();
 					GridMain.Children.Add(usc);
 					break;
 				default:

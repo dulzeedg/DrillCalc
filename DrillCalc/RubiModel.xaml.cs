@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq;
 
 namespace DrillCalc
 {
@@ -36,11 +36,11 @@ namespace DrillCalc
 		string inputData33 = string.Empty;
 		string inputData34 = string.Empty;
 		string inputData35 = string.Empty;
-		
 
 
-		public double BVMin { get; set; }
-		public double HVMin { get; set; }
+
+		public double BVMinArray { get; set; }
+		public double HVMinArray { get; set; }
 
 		private void Bingham_Button_Click_Calc(object sender, RoutedEventArgs e)
 		{
@@ -64,7 +64,7 @@ namespace DrillCalc
 					BPs, BDc, BRop, BRpm, BCconc;
 			double BDT, BDTSqrd, BVcut, BVs1,
 					BVmin, BD1, BUa, BRe,
-						BF, BVslip;
+						BF, BVslip, BVMin;
 			int i;
 			BPv = Convert.ToDouble(inputData00);
 			BYp = Convert.ToDouble(inputData01);
@@ -105,29 +105,30 @@ namespace DrillCalc
 			}
 
 			BVslip = 1.89 * Math.Sqrt(Math.Abs((((BDc / BF) * ((BPs - BPm) / BPm)))));
-
+			
 			for (i = 0; i < 91; i++)
 			{
-				double[] BVMin = new double[20];
+				
 				if (i < 45)
 				{
 					// There's a bug
-					//BVMin = BVcut + ((1 + (2 * i / 45)) * (1 - (BRpm / 600)) * ((3 + BPm) / 15) * BVslip).Where(d => d.hasValue)
-					//	.Cast<double>()
-						//.ToArray();
+					BVMin = BVcut + ((1 + (2 * i / 45)) * (1 - (BRpm / 600)) * ((3 + BPm) / 15) * BVslip);
+					double[] BVMinArray = BVMin.Select(pkg => pkg.hasValue).ToArray();
+
 				}
 				else if (i > 45)
 				{
-					//BVMin = BVcut + (3 * (3 + (BPm / 15)) * (1 - (BRpm / 600)) * BVslip).Where(d => d.hasValue)
-						//.Cast<double>()
-						//.ToArray();
+					BVMin = BVcut + (3 * (3 + (BPm / 15)) * (1 - (BRpm / 600)) * BVslip)
+						.where(d => d.hasValue)
+							.Cast<double>()
+							.ToArray();
 				}
 
 
 			}
 
 			// send to plot
-			Wpf.CartesianChart.PointShapeLine.PointShapeLineExample PlotGraph1 = new Wpf.CartesianChart.PointShapeLine.PointShapeLineExample();
+			PlotGraph PlotGraph1 = new DrillCalc.PlotGraph();
 			PlotGraph1.Show();
 			Close();
 
@@ -164,7 +165,7 @@ namespace DrillCalc
 
 			double HDT, HDTSqrd, HVcut, HVs1,
 					 HD, Hn, HUa, HRe,
-						Hf, HVslip;
+						Hf, HVslip, HVMin;
 			int i;
 
 			HFb = Convert.ToDouble(inputData20);
@@ -208,11 +209,9 @@ namespace DrillCalc
 
 			HVslip = 1.89 * (Math.Sqrt(Math.Abs((((HCd / Hf) * ((HPs - HPm) / HPm))))));
 
-
-
 			for (i = 0; i < 91; i++)
 			{
-				
+
 				if (i < 45)
 				{
 					//double[] = new double[90];
@@ -227,7 +226,7 @@ namespace DrillCalc
 
 			// send to plot
 
-			Wpf.CartesianChart.PointShapeLine.PointShapeLineExample PlotGraph2 = new Wpf.CartesianChart.PointShapeLine.PointShapeLineExample();
+			DrillCalc.PlotGraph PlotGraph2 = new DrillCalc.PlotGraph();
 			PlotGraph2.Show();
 			RubiModel.Close();
 

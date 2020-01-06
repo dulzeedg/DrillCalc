@@ -51,16 +51,17 @@ namespace DrillCalc
 			inputData8 += HBtextBoxRop.Text;
 			inputData9 += HBtextBoxCconc.Text;
 
-			double HBPs, HBPf, HBPv, HBYp, HBQ, HBDh,
+			double HBPs, HBPm, HBPv, HBYp, HBQ, HBDh,
 					HBDp, HBDcut, HBRop, HBCconc;
 
-			//double Va;
+			double BVa, BD, BP, BVsv, BU,
+					Bfmw, Vs, c, g, D1, D2, V2, ang;
 
 
 
 			//int ang;
 			HBPs = Convert.ToDouble(inputData0);
-			HBPf = Convert.ToDouble(inputData1);
+			HBPm = Convert.ToDouble(inputData1);
 			HBPv = Convert.ToDouble(inputData2);
 			HBYp = Convert.ToDouble(inputData3);
 			HBQ = Convert.ToDouble(inputData4);
@@ -71,37 +72,29 @@ namespace DrillCalc
 			HBCconc = Convert.ToDouble(inputData6);
 
 			// Ambiguity
-			/*
+			
 
 			// Hopkins's Calc.
-
-			RPM = RPM600 / RPM300;
-			n = 3.32 * Math.Log10(RPM);
-			k = RPM300 / Math.Pow(511, n);
-			q = (4 * Math.Pow(Dh, 2) + (5 * Dh));
-			
-			Va = (24.5 * HBQ) / (Math.Pow(HBDh, 2) - Math.Pow(HBDp, 2));
-			
-			D = Math.Pow(HBDh, 2) - Math.Pow(HBDp, 2);
-			P = ps - pm;
-			nn = 1 - n;
-			v1 = 144 * v;
-			u = (k * Math.Pow(D, nn) / (Math.Pow(v1, nn))) * ((2 * (1 / n)) / 0.0208);
-			vsv = (Math.Pow(P, 0.667) * 175 * ds0) / (Math.Pow(pm, 0.333) * Math.Pow(u, 0.333));
-			fmw = 2.117 - 0.1648 * pm + 0.003681 * Math.Pow(pm, 2);
-			vs = vsv * fmw;
+			BVa = (24.5 * HBQ) / (Math.Pow(HBDh, 2) - Math.Pow(HBDp, 2));
+			BD = HBDh - HBDp;
+			BU = HBPv + (5 * HBYp * (BD / BVa));
+			BP = HBPs - HBPm;
+			BVsv = ((Math.Pow(BP, 0.667) * 175 * HBDcut) / (Math.Pow(HBPm, 0.333) * Math.Pow(BU, 0.333)));
+			Bfmw = 2.117 - 0.1648 * HBPm + 0.003681 * Math.Pow(HBPm, 2);
+			Vs = BVsv * Bfmw;
 			c = 40;
-			cn = 32.3;
-			D1 = D / 12;
-			D2 = ((22 - pm) / pm) * Math.Pow(cn, 3) * (Math.Pow(D1, 3));
-			v2 = c * Math.Pow(D2, 0.1667);
-			double vmin, qmin;
-			double angle1 = Math.Cos(ang);
-			double angle2 = Math.Sin(ang);
-			vmin = (vs * angle1) + (vs * angle2);
-			qmin = (0.04079 * Math.Pow(Dh, 2)) - Math.Pow(Dp, 2) * vmin;
-			*/
-
+			g = 32.3;
+			D1 = BD / 12;
+			D2 = ((HBPs - HBPm) / HBPm) * Math.Pow(g, 3) * (Math.Pow(D1, 3));
+			V2 = c * Math.Pow(D2, 0.1667);
+			for (ang = 0; ang < 91; ang = +1)
+			{ 
+				double vmin, qmin;
+				double angle1 = Math.Cos(ang);
+				double angle2 = Math.Sin(ang);
+				vmin = Math.Abs((Vs * angle1) + (V2 * angle2));
+				qmin = (0.04079 * Math.Pow(HBDh, 2) - Math.Pow(HBDp, 2)) * vmin;
+			}
 		}
 
 		private void HopkinHerschel_Button_Click_Calc(object sender, RoutedEventArgs e)
@@ -117,11 +110,11 @@ namespace DrillCalc
 			inputData18 += HHtextBoxRop.Text;
 			inputData19 += HHtextBoxCcon.Text;
 
-			double HHPs, HHPf, HHn, HHk, HHQ, HHDh,
+			double HHPs, HHPm, HHn, HHk, HHQ, HHDh,
 					HHDp, HHDcut, HHRop, HHCconc;
-
+		
 			HHPs = Convert.ToDouble(inputData10);
-			HHPf = Convert.ToDouble(inputData11);
+			HHPm = Convert.ToDouble(inputData11);
 			HHn = Convert.ToDouble(inputData12);
 			HHk = Convert.ToDouble(inputData13);
 			HHQ = Convert.ToDouble(inputData14);
@@ -133,11 +126,31 @@ namespace DrillCalc
 
 
 			// Var
-			//double Va, Q;
+			double HVa, HD, Nn, HU,HP, HVsv,
+					HFmw, vs, c, g,D1,D2,V2,ang;
 
+			HVa = (24.5 * HHQ) / (Math.Pow(HHDh, 2) - Math.Pow(HHDp, 2));
+			HD = HHDh - HHDp;
+			Nn = 1 - HHn;
+			HU = ((HHk * (Math.Pow(HD, Nn))) / (144 * (Math.Pow(HVa, Nn)))) * ((2 * (1 / HHn)) / 0.0208);
+			HP = HHPs - HHPm;
+			HVsv = (Math.Pow(HP, 0.667) * 175 * HHDcut) / (Math.Pow(HHPm, 0.333) * Math.Pow(HU, 0.333));
+			HFmw = 2.117 - 0.1648 * HHPm + 0.003681 * Math.Pow(HHPm, 2);
+			vs = HVsv * HFmw;
+			c = 40;
+			g = 32.3;
+			D1 = HD / 12;
+			D2 = ((HHPs - HHPm) / HHPm) * Math.Pow(g, 3) * (Math.Pow(D1, 3));
+			V2 = c * Math.Pow(D2, 0.1667);
+			for (ang = 0; ang < 91; ang = +1)
+			{
+				double vmin, qmin;
+				double angle1 = Math.Cos(ang);
+				double angle2 = Math.Sin(ang);
+				vmin = Math.Abs((vs * angle1) + (V2 * angle2));
+				qmin = (0.04079 * Math.Pow(HHDh, 2) - Math.Pow(HHDp, 2)) * vmin;
+			}
 
-			// Calc  Not Done because of ambiguity
-			//Va = 24.5 * Q;
 		}
 	}
 }
