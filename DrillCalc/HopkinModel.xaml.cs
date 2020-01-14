@@ -72,7 +72,7 @@ namespace DrillCalc
 			HBCconc = Convert.ToDouble(inputData6);
 
 			// Ambiguity
-			
+
 
 			// Hopkins's Calc.
 			BVa = (24.5 * HBQ) / (Math.Pow(HBDh, 2) - Math.Pow(HBDp, 2));
@@ -88,7 +88,7 @@ namespace DrillCalc
 			D2 = ((HBPs - HBPm) / HBPm) * Math.Pow(g, 3) * (Math.Pow(D1, 3));
 			V2 = c * Math.Pow(D2, 0.1667);
 			for (ang = 0; ang < 91; ang = +1)
-			{ 
+			{
 				double vmin, qmin;
 				double angle1 = Math.Cos(ang);
 				double angle2 = Math.Sin(ang);
@@ -112,7 +112,7 @@ namespace DrillCalc
 
 			double HHPs, HHPm, HHn, HHk, HHQ, HHDh,
 					HHDp, HHDcut, HHRop, HHCconc;
-		
+
 			HHPs = Convert.ToDouble(inputData10);
 			HHPm = Convert.ToDouble(inputData11);
 			HHn = Convert.ToDouble(inputData12);
@@ -126,8 +126,8 @@ namespace DrillCalc
 
 
 			// Var
-			double HVa, HD, Nn, HU,HP, HVsv,
-					HFmw, vs, c, g,D1,D2,V2,ang;
+			double HVa, HD, Nn, HU, HP, HVsv,
+					HFmw, vs, c, g, D1, D2, V2, ang;
 
 			HVa = (24.5 * HHQ) / (Math.Pow(HHDh, 2) - Math.Pow(HHDp, 2));
 			HD = HHDh - HHDp;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -105,30 +104,30 @@ namespace DrillCalc
 			}
 
 			BVslip = 1.89 * Math.Sqrt(Math.Abs((((BDc / BF) * ((BPs - BPm) / BPm)))));
-			
+
 			for (i = 0; i < 91; i++)
 			{
-				
+
 				if (i < 45)
 				{
 					// There's a bug
-					BVMin = BVcut + ((1 + (2 * i / 45)) * (1 - (BRpm / 600)) * ((3 + BPm) / 15) * BVslip);
-					double[] BVMinArray = BVMin.Select(pkg => pkg.hasValue).ToArray();
+					//BVMin = BVcut + ((1 + (2 * i / 45)) * (1 - (BRpm / 600)) * ((3 + BPm) / 15) * BVslip);
+					//double[] BVMinArray = BVMin.Select(pkg => pkg.hasValue).ToArray();
 
 				}
 				else if (i > 45)
 				{
-					BVMin = BVcut + (3 * (3 + (BPm / 15)) * (1 - (BRpm / 600)) * BVslip)
-						.where(d => d.hasValue)
-							.Cast<double>()
-							.ToArray();
+					//BVMin = BVcut + (3 * (3 + (BPm / 15)) * (1 - (BRpm / 600)) * BVslip)
+					//.where(d => d.hasValue)
+					//.Cast<double>()
+					//.ToArray();
 				}
 
 
 			}
 
 			// send to plot
-			PlotGraph PlotGraph1 = new DrillCalc.PlotGraph();
+			PlotGraph PlotGraph1 = new PlotGraph();
 			PlotGraph1.Show();
 			Close();
 
