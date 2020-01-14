@@ -34,7 +34,7 @@ namespace DrillCalc
 						new LineSeries
 						{
 							Title = "Series 30",
-							// ChartValues<>{} 
+							// ChartValues<>{} Insert Values below
 							Values = new ChartValues<double> { 1.278272, 1.301002, 1.312367, 1.323732, 1.335097, 1.346462, 1.357828, 1.369193, 1.380558, 1.380558, 1.380558, 1.380558, 1.380558 , 1.380558, 1.380558, 1.380558, 1.380558 },
 							PointGeometry = DefaultGeometries.Circle,
 							PointGeometrySize = 5,
