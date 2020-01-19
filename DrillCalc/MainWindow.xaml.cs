@@ -41,6 +41,10 @@ namespace DrillCalc
 					usc = new PlotGraph();
 					GridMain.Children.Add(usc);
 					break;
+				/*case "GraphTable":
+					usc = new GraphTable();
+					GridMain.Children.Add(usc);
+					break;*/
 				default:
 					break;
 			}

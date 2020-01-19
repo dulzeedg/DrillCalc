@@ -19,23 +19,23 @@ namespace DrillCalc
 
 			// index configuration
 
-			var mapper1 = new CartesianMapper<double>()
-			.X((value, index) => index)
-			.Y((value, index) => value);
+			//var mapper1 = new CartesianMapper<double>()
+			//.X((value, index) => index)
+			//.Y((value, index) => value);
 
 			// setting maxRange
 			// obj ref is required for non-static 
 			//CartesianChart.AxisX.Clear();
 			//CartesianChart.AxisX.Add(
 				//new Axis { MaxRange = 90 });
-			SeriesCollection seriesCollection = SeriesCollection = new SeriesCollection(mapper1)
+			SeriesCollection seriesCollection = SeriesCollection = new SeriesCollection()
 			{
 						
 						new LineSeries
 						{
 							Title = "Series 30",
 							// ChartValues<>{} Insert Values below
-							Values = new ChartValues<double> { 1.278272, 1.301002, 1.312367, 1.323732, 1.335097, 1.346462, 1.357828, 1.369193, 1.380558, 1.380558, 1.380558, 1.380558, 1.380558 , 1.380558, 1.380558, 1.380558, 1.380558 },
+							Values = new ChartValues<double> { 1.49, 1.61, 1.73, 1.85, 1.96, 2.02, 2.02, 2.02, 2.02, 2.02 },
 							PointGeometry = DefaultGeometries.Circle,
 							PointGeometrySize = 5,
 							LineSmoothness = 0,
@@ -44,31 +44,31 @@ namespace DrillCalc
 						new LineSeries
 						{
 							Title = "Series 60",
-							Values = new ChartValues<double> { 1.678973, 1.704566, 1.717362, 1.730158, 1.742955, 1.755751, 1.768547, 1.781344, 1.79414, 1.79414, 1.79414, 1.79414, 1.79414, 1.79414, 1.79414, 1.79414, 1.79414 },
+							Values = new ChartValues<double> { 1.56, 1.71, 1.85, 2.00, 2.15, 2.22, 2.22, 2.22, 2.22, 2.22 },
 							PointGeometry = DefaultGeometries.Circle,
 							PointGeometrySize = 5,
 							LineSmoothness = 0,
 							DataLabels = true,
 							//LabelPoint = point => point.Y + point.X
 						},
-						new LineSeries
+						/*new LineSeries
 						{
 							Title = "Series 80",
-							Values = new ChartValues<double> { 1.82266, 1.849177, 1.8622435, 1.875694, 1.888952, 1.902211, 1.915496, 1.915469, 1.928727, 1.941986, 1.941986, 1.941986, 1.941986, 1.941986, 1.941986, 1.941986, 1.941986 },
+							Values = new ChartValues<double> { 5.2, 25.8, 45.6, 64.0, 80.5, 94.6, 105.7, 113.7, 118.2, 119.1 },
 							PointGeometry = DefaultGeometries.Circle,
 							PointGeometrySize = 5,
 							LineSmoothness = 0,
 							DataLabels = true
-						}
+						}*/
 					
 			};
 
-			/*Labels = new[]
-			{
-				10, 20, 30, 40, 50
-			};*/
-			YFormatter = value => value;
 
+			// 
+			//SeriesCollection[1].Values.Add(5d);
+
+			Labels = new[] { "0", "", "20", "", "40", "", "60",  "", "80", "", "50", "", "60", "", "70", "c", "80", "c", "90" };
+			Formatter = value =>value.ToString("N");
 			DataContext = this; 
 		}
 		
@@ -76,9 +76,9 @@ namespace DrillCalc
 
 		public SeriesCollection SeriesCollection { get; set; }
 		
-		//public int[] Labels { get; set; }
-		public Func<double, double> YFormatter { get; set; }
-		public double HVMin { get; set; }
+		public string[] Labels { get; set; }
+		public Func<double, string> Formatter { get; set; }
+		//public double HVMin { get; set; }
 
 		internal void Show()
 		{

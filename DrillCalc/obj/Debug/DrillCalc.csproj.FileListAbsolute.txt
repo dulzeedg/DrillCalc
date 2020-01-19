@@ -239,3 +239,6 @@ C:\Users\Dulzeed G\Documents\GitHub\DrillCalc\DrillCalc\obj\Debug\DrillCalc.appl
 C:\Users\Dulzeed G\Documents\GitHub\DrillCalc\DrillCalc\obj\Debug\DrillCalc.csproj.CopyComplete
 C:\Users\Dulzeed G\Documents\GitHub\DrillCalc\DrillCalc\obj\Debug\DrillCalc.exe
 C:\Users\Dulzeed G\Documents\GitHub\DrillCalc\DrillCalc\obj\Debug\DrillCalc.pdb
+C:\Users\Dulzeed G\Documents\GitHub\DrillCalc\DrillCalc\obj\Debug\GraphTable.g.cs
+C:\Users\Dulzeed G\Documents\GitHub\DrillCalc\DrillCalc\obj\Debug\DrillCalc_MarkupCompile.lref
+C:\Users\Dulzeed G\Documents\GitHub\DrillCalc\DrillCalc\obj\Debug\GraphTable.baml

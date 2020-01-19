@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 
 namespace DrillCalc
 {
@@ -39,7 +41,7 @@ namespace DrillCalc
 
 
 		public double BVMinArray { get; set; }
-		public double HVMinArray { get; set; }
+		public double[] HVMinArray { get; set; }
 
 		private void Bingham_Button_Click_Calc(object sender, RoutedEventArgs e)
 		{
@@ -63,8 +65,8 @@ namespace DrillCalc
 					BPs, BDc, BRop, BRpm, BCconc;
 			double BDT, BDTSqrd, BVcut, BVs1,
 					BVmin, BD1, BUa, BRe,
-						BF, BVslip, BVMin;
-			int i;
+						BF, BVslip;
+			
 			BPv = Convert.ToDouble(inputData00);
 			BYp = Convert.ToDouble(inputData01);
 			BPm = Convert.ToDouble(inputData02);
@@ -78,156 +80,194 @@ namespace DrillCalc
 
 			// Calculations
 			BDT = BDp / BDh;
-			BDTSqrd = 1 - Math.Pow(BDT, 2);
+			BDTSqrd = 1 - (Math.Pow(BDT, 2));
+
+			// a
 			BVcut = BRop / (36 * BDTSqrd * BCconc);
+			// b
 			BVs1 = 3.14;
+			// c
 			BVmin = BVcut + BVs1;
+
 			BD1 = BDh - BDp;
+			// d
 			BUa = BPv + (5 * BYp * BD1 / BVmin);
+			// e
 			BRe = (928 * BPm * BDc * BVs1) / BUa;
+
 			BF = 0;
+			if (BRe <= 3)
 			{
-				if (BRe <= 3)
-				{
-					BF = 40 / BRe;
-				}
-
-				else if (BRe >= 300)
-				{
-					BF = 1.54;
-				}
-
-				else if (BRe > 3 && BRe < 300)
-				{
-					BF = 22 / Math.Sqrt(BRe);
-				}
+				BF = 40 / BRe;
+			}
+			else if (BRe >= 300)
+			{
+				BF = 1.54;
+			}
+			else if (BRe > 3 && BRe < 300)
+			{
+				BF = 22 / Math.Sqrt(BRe);
 			}
 
+			// g
 			BVslip = 1.89 * Math.Sqrt(Math.Abs((((BDc / BF) * ((BPs - BPm) / BPm)))));
+			// h
+
+			// array = array of y and x
+			//double[,] BVMin = { { y }, { x } };
+			double i, v1,v2;
+			//double[] BVMin, v;
+			//BVMin = new double[90];
+
 
 			for (i = 0; i < 91; i++)
 			{
 
 				if (i < 45)
 				{
-					// There's a bug
-					//BVMin = BVcut + ((1 + (2 * i / 45)) * (1 - (BRpm / 600)) * ((3 + BPm) / 15) * BVslip);
-					//double[] BVMinArray = BVMin.Select(pkg => pkg.hasValue).ToArray();
-
+					//double v;
+					//double[] v = BVMin.Select(pkg => pkg.hasValue).ToArray();
+					v1 = BVcut + ((1 + (2 * i / 45)) * (1 - (BRpm / 600)) * ((3 + BPm) / 15) * BVslip);
+					//v = v1;
+					
+					//BVMin = v;
 				}
 				else if (i > 45)
 				{
-					//BVMin = BVcut + (3 * (3 + (BPm / 15)) * (1 - (BRpm / 600)) * BVslip)
-					//.where(d => d.hasValue)
-					//.Cast<double>()
-					//.ToArray();
+						//double v;
+					v2 = BVcut + (3 * ((3 + BPm) / 15) * (1 - (BRpm / 600)) * BVslip);
+					//BVMin = v;
+						//.where(d => d.hasValue)
+						//.Cast<double>()
+						//.ToArray();
 				}
 
 
+				// call Graph Table 
+				GraphTable graphTable = new GraphTable();
+				graphTable.Show();
+				//this.Close();
+
+
+
+				// Clear Input
+				//BtextBox0.Text = "";
+
+
+
 			}
-
-			// send to plot
-			PlotGraph PlotGraph1 = new PlotGraph();
-			PlotGraph1.Show();
-			Close();
-
-
-
-			// Clear Input
-			//BtextBox0.Text = "";
-
 		}
-
-
-
 		private void Herschel_Button_Click_Calc(object sender, RoutedEventArgs e)
 		{
-			// add user input from textbox to var input
-			inputData20 += HtextBoxFb.Text;
-			inputData21 += HtextBoxK.Text;
-			inputData22 += HtextBoxPm.Text;
-			inputData23 += HtextBoxDh.Text;
-			inputData24 += HtextBoxDp.Text;
-			inputData30 += HtextBoxPs.Text;
-			inputData31 += HtextBoxCd.Text;
-			inputData32 += HtextBoxRop.Text;
-			inputData33 += HtextBoxRpm.Text;
-			inputData34 += HtextBoxCcon.Text;
-			inputData35 += HtextBoxFr.Text;
+				// add user input from textbox to var input
+				inputData20 += HtextBoxFb.Text;
+				inputData21 += HtextBoxK.Text;
+				inputData22 += HtextBoxPm.Text;
+				inputData23 += HtextBoxDh.Text;
+				inputData24 += HtextBoxDp.Text;
+				inputData30 += HtextBoxPs.Text;
+				inputData31 += HtextBoxCd.Text;
+				inputData32 += HtextBoxRop.Text;
+				inputData33 += HtextBoxRpm.Text;
+				inputData34 += HtextBoxCcon.Text;
+				inputData35 += HtextBoxFr.Text;
 
-			// Calculating Output
+				// Calculating Output
 
-			// Variables
-			double HFb, Hk, HPm, HDh, HDp,
-					HPs, HCd, HRop, HRpm,
-						HCcon, HFr;
+				// Variables
+				double HFb, Hk, HPm, HDh, HDp,
+						HPs, HCd, HRop, HRpm,
+							HCcon, HFr;
 
-			double HDT, HDTSqrd, HVcut, HVs1,
-					 HD, Hn, HUa, HRe,
-						Hf, HVslip, HVMin;
-			int i;
+				double HDT, HDTSqrd, HVcut, HVs1,
+						 HD, Hn, HUa, HRe, HVa, Hn1,
+							Hf, HVslip, Hn2;
 
-			HFb = Convert.ToDouble(inputData20);
-			Hk = Convert.ToDouble(inputData21);
-			HPm = Convert.ToDouble(inputData22);
-			HDh = Convert.ToDouble(inputData23);
-			HDp = Convert.ToDouble(inputData24);
-			HPs = Convert.ToDouble(inputData30);
-			HCd = Convert.ToDouble(inputData31);
-			HRop = Convert.ToDouble(inputData32);
-			HRpm = Convert.ToDouble(inputData33);
-			HCcon = Convert.ToDouble(inputData34);
-			HFr = Convert.ToDouble(inputData35);
+				HFb = Convert.ToDouble(inputData20);
+				Hk = Convert.ToDouble(inputData21);
+				HPm = Convert.ToDouble(inputData22);
+				HDh = Convert.ToDouble(inputData23);
+				HDp = Convert.ToDouble(inputData24);
+				HPs = Convert.ToDouble(inputData30);
+				HCd = Convert.ToDouble(inputData31);
+				HRop = Convert.ToDouble(inputData32);
+				HRpm = Convert.ToDouble(inputData33);
+				HCcon = Convert.ToDouble(inputData34);
+				HFr = Convert.ToDouble(inputData35);
 
 
-			// Calculations
-			HDT = HDp / HDh;
-			HDTSqrd = 1 - Math.Pow(HDT, 2);
-			HVcut = HRop / (36 * HDTSqrd * HCcon);
-			HVs1 = 0.1;
+				// Calculations
+				HDT = HDp / HDh;
+				HDTSqrd = 1 - Math.Pow(HDT, 2);
+				// a
+				HVcut = HRop / (36 * HDTSqrd * HCcon);
+				// b
+				HVs1 = 3.14;
 			//HVmin = HVcut + HVs1;
-			HD = HDh - HDp;
+
+			// c 
+			HD = Math.Pow(HDh, 2) - Math.Pow(HDp, 2);
+			HVa = HFr / 2.45 * HD;
+			// d	
 			Hn = 1 - HFb;
-			HUa = ((((Hk * Math.Pow(HD, Hn))) / (144 * Math.Pow(HFr, Hn)))) * (Math.Pow(((2 + (1 / Hn)) / 0.0208), HFb));
+			Hn1 = HDh - HDp;
+			Hn2 = 2 + (1 / HFb) / 0.0208;
+			HUa = Hk * Math.Pow(Hn1, Hn) / 144 * Math.Pow(HVa, Hn) * Math.Pow(Hn2 , HFb);
+			// e
 			HRe = (928 * HPm * HCd * HVs1) / HUa;
+			// f
 			Hf = 0;
 			if (HRe <= 3)
 			{
 				Hf = 40 / HRe;
 			}
-
-			else if (HRe >= 300)
+            else if (HRe >= 300)
 			{
-				Hf = 1.54;
+					Hf = 1.54;
 			}
-
 			else if (HRe > 3 && HRe < 300)
 			{
-				Hf = 22 / Math.Sqrt(HRe);
+					Hf = 22 / Math.Sqrt(HRe);
 			}
+			// g
+			HVslip = 1.89 * Math.Sqrt(Math.Abs(HCd / Hf * (HPs - HPm) / HPm));
 
-			HVslip = 1.89 * (Math.Sqrt(Math.Abs((((HCd / Hf) * ((HPs - HPm) / HPm))))));
-
-			for (i = 0; i < 91; i++)
+			// i for y-axis
+			// HVMin for x-axis
+			double i;
+			double HVMin;
+			// Calculate for both angles of i
+			for (i = 0; i < 90; i++)
 			{
-
 				if (i < 45)
 				{
 					//double[] = new double[90];
+					//double[] v = BVMin.Select(pkg => pkg.hasValue).ToArray();
 					HVMin = HVcut + ((1 + ((2 * i) / 45)) * (1 - (HRpm / 600)) * ((3 + HPm) / 15) * HVslip);
+					//HVMinArray[i] = HVMin;
+
+					//v = HVMin.Select(pkg => pkg.hasValue).ToArrAy();
 				}
 				else if (i > 45)
 				{
 					HVMin = HVcut + (((3 * 3) + (HPm / 15)) * (1 - HRpm / 600) * HVslip);
+					//HVMinArray[i] = HVMin;
 				}
 
+				//HVMinArray = new double[i];
 			}
 
-			// send to plot
+			// get Values
+			//ValuesArray valuesArray = new ValuesArray();
+			//valuesArray.GetValues();
 
-			DrillCalc.PlotGraph PlotGraph2 = new DrillCalc.PlotGraph();
-			PlotGraph2.Show();
-			RubiModel.Close();
+			// call Graph Table 
+			GraphTable graphTable = new GraphTable();
+			graphTable.Show();
+
+			//DrillCalc.PlotGraph PlotGraph2 = new DrillCalc.PlotGraph();
+			//PlotGraph2.Show();
+			//RubiModel.Close();
 
 			// Clear Input
 			//HtextBox0.Text = "";
@@ -236,8 +276,8 @@ namespace DrillCalc
 		}
 
 		private static void Close()
-		{
-			throw new NotImplementedException();
-		}
+			{
+				throw new NotImplementedException();
+			}
 	}
 }

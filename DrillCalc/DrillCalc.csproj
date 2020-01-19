@@ -138,6 +138,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GraphTable.xaml.cs">
+      <DependentUpon>GraphTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PlotGraph.xaml.cs">
       <DependentUpon>PlotGraph.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,11 @@
     <Compile Include="HopkinModel.xaml.cs">
       <DependentUpon>HopkinModel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValuesArray.cs" />
+    <Page Include="GraphTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

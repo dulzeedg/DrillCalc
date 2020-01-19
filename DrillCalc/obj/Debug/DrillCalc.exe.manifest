@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DrillCalc.exe" size="51640">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DrillCalc.exe" size="53176">
       <assemblyIdentity name="DrillCalc" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/Kf0Px6K3rUm3zVaocQtW3oznJSVsYOsynwy09I0Mqo=</dsig:DigestValue>
+        <dsig:DigestValue>x69S4eNn9b+1t4rpgXSvJRbqQvcvaDW8yOfNYhd7/kU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -11,7 +11,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d" Height="600" Width="1080"  Foreground="White" WindowStartupLocation="CenterScreen" Title="MainWindow" >
+        mc:Ignorable="d" Height="600" Width="1080"  Foreground="White" WindowStartupLocation="CenterScreen" Title="Hole-Cleaning Optimization Tool" >
 
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
@@ -41,7 +41,7 @@
 			<Grid.Effect>
 				<DropShadowEffect BlurRadius="1" ShadowDepth="1" Color="#FFACACAC"/>
 			</Grid.Effect>
-			<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="Drill Calculations"/>
+			<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="Hole-Cleaning Optimization Tool"/>
         </Grid>
         <Grid x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#FF31577E">
             <Grid.Effect>
@@ -81,6 +81,12 @@
 					<ListViewItem x:Name="ItemPlot" Height="60">
 						<StackPanel Orientation="Horizontal">
 							<materialDesign:PackIcon Kind="ChartLine" Height="25" Width="25" Margin="10"/>
+							<TextBlock Text="Graph" VerticalAlignment="Center" Margin="20 10"/>
+						</StackPanel>
+					</ListViewItem>
+					<ListViewItem x:Name="GraphTable" Height="60">
+						<StackPanel Orientation="Horizontal">
+							<materialDesign:PackIcon Kind="TableColumn" Height="25" Width="25" Margin="10"/>
 							<TextBlock Text="Graph" VerticalAlignment="Center" Margin="20 10"/>
 						</StackPanel>
 					</ListViewItem>
