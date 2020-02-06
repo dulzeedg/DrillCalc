@@ -10,8 +10,6 @@ namespace DrillCalc
 		{
 			InitializeComponent();
 		}
-
-
 		// Declaring Variables for Bingham
 		string inputData0 = string.Empty;
 		string inputData1 = string.Empty;
@@ -21,8 +19,6 @@ namespace DrillCalc
 		string inputData5 = string.Empty;
 		string inputData6 = string.Empty;
 		string inputData7 = string.Empty;
-		
-
 		// Declaring Variables for Herschel
 		string inputData10 = string.Empty;
 		string inputData11 = string.Empty;
@@ -32,12 +28,9 @@ namespace DrillCalc
 		string inputData15 = string.Empty;
 		string inputData16 = string.Empty;
 		string inputData17 = string.Empty;
-		
-
+		// On button Click
 		private void HopkinBingham_Button_Click_Calc(object sender, RoutedEventArgs e)
 		{
-			// add user input from textbox to var input
-
 			inputData0 += HBtextBoxPs.Text;
 			inputData1 += HBtextBoxPf.Text;
 			inputData2 += HBtextBoxPv.Text;
@@ -46,17 +39,10 @@ namespace DrillCalc
 			inputData5 += HBtextBoxDh.Text;
 			inputData6 += HBtextBoxDp.Text;
 			inputData7 += HBtextBoxDcut.Text;
-			
-
 			double HBPs, HBPm, HBPv, HBYp, HBQ, HBDh,
-					HBDp, HBDcut, HBRop, HBCconc;
-
+					HBDp, HBDcut;
 			double BVa, BD, BP, BVsv, BU,
-					Bfmw, Vs, c, g, D1, D2, V2, ang;
-
-
-
-			//int ang;
+					Bfmw, Vs, c, g, D1, D2, V2;
 			HBPs = Convert.ToDouble(inputData0);
 			HBPm = Convert.ToDouble(inputData1);
 			HBPv = Convert.ToDouble(inputData2);
@@ -65,10 +51,6 @@ namespace DrillCalc
 			HBDh = Convert.ToDouble(inputData5);
 			HBDp = Convert.ToDouble(inputData6);
 			HBDcut = Convert.ToDouble(inputData7);
-
-			// Ambiguity
-
-
 			// Hopkins's Calc.
 			// a
 			BVa = (24.5 * HBQ) / (Math.Pow(HBDh, 2) - Math.Pow(HBDp, 2));
@@ -88,21 +70,17 @@ namespace DrillCalc
 			D2 = ((HBPs - HBPm) / HBPm) * Math.Pow(g, 3) * (Math.Pow(D1, 3));
 			// f
 			V2 = c * Math.Pow(D2, 0.1667);
-			for (ang = 0; ang < 91; ang = +1)
+			double[] vmin = new double[91];
+			int i;
+			ValuesArray values = new ValuesArray();
+			for (i = 0; i < 91; i++)
 			{
-				double vmin, qmin;
-				double angle1 = Math.Cos(ang);
-				double angle2 = Math.Sin(ang);
-				vmin = Math.Abs((Vs * angle1) + (V2 * angle2));
-				qmin = (0.04079 * Math.Pow(HBDh, 2) - Math.Pow(HBDp, 2)) * vmin;
+				double angle1 = Math.Cos(i);
+				double angle2 = Math.Sin(i);
+				vmin[i] = Math.Abs((Vs * angle1) + (V2 * angle2));
 			}
-
-			// call Graph Table 
-			GraphTable graphTable = new GraphTable();
-			graphTable.Show();
-
+			Array.Copy(vmin, 0, values.value, 0, vmin.Length);
 		}
-
 		private void HopkinHerschel_Button_Click_Calc(object sender, RoutedEventArgs e)
 		{
 			inputData10 += HHtextBoxPs.Text;
@@ -113,11 +91,8 @@ namespace DrillCalc
 			inputData15 += HHtextBoxDh.Text;
 			inputData16 += HHtextBoxDp.Text;
 			inputData17 += HHtextBoxDcut.Text;
-			
-
 			double HHPs, HHPm, HHn, HHk, HHQ, HHDh,
-					HHDp, HHDcut, HHRop, HHCconc;
-
+					HHDp, HHDcut;
 			HHPs = Convert.ToDouble(inputData10);
 			HHPm = Convert.ToDouble(inputData11);
 			HHn = Convert.ToDouble(inputData12);
@@ -126,13 +101,9 @@ namespace DrillCalc
 			HHDh = Convert.ToDouble(inputData15);
 			HHDp = Convert.ToDouble(inputData16);
 			HHDcut = Convert.ToDouble(inputData17);
-			
-
-
 			// Var
 			double HVa, HD, Nn, HU, HP, HVsv,
 					HFmw, vs, c, g, D1, D2, V2, ang;
-
 			// a 
 			HVa = (24.5 * HHQ) / Math.Pow(HHDh, 2) - Math.Pow(HHDp, 2);
 			HD = HHDh - HHDp;
@@ -152,19 +123,16 @@ namespace DrillCalc
 			D2 = ((HHPs - HHPm) / HHPm) * Math.Pow(g, 3) * (Math.Pow(D1, 3));
 			// f
 			V2 = c * Math.Pow(D2, 0.1667);
-						for (ang = 0; ang < 91; ang++)
+			double[] vmin = new double[91];
+			int i;
+			ValuesArray values = new ValuesArray();
+			for (i = 0; i < 91; i++)
 			{
-				double vmin, qmin;
-				double angle1 = Math.Cos(ang);
-				double angle2 = Math.Sin(ang);
-				vmin = Math.Abs((vs * angle1) + (V2 * angle2));
-				qmin = (0.04079 * Math.Pow(HHDh, 2) - Math.Pow(HHDp, 2)) * vmin;
+				double angle1 = Math.Cos(i);
+				double angle2 = Math.Sin(i);
+				vmin[i] = Math.Abs((vs * angle1) + (V2 * angle2));
 			}
-
-			// call Graph Table 
-			GraphTable graphTable = new GraphTable();
-			graphTable.Show();
-
+			Array.Copy(vmin, 0, values.value, 0, vmin.Length);
 		}
 	}
 }
